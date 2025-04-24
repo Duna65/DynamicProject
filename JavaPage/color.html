@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>Random Background</title>
+    <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+ 
+<body id="body">
+    <h1>Press the button!</h1>
+    <h3>Change the color of the background</h3>
+    <button type="button" onclick="changeColor()">Color</button>
+    <br>
+    <br>
+    <a class="gridleft" href="Index.html">Press to go back</a>
+    <script>
+        function changeColor() {
+            let color = "#" + (Math.random() * 16777215 | 0).toString(16);
+            $("body").css("background-color", color);
+        }
+    </script>
+</body>
+ 
+</html>

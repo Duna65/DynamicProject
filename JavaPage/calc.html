@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>Random Dynamic stuff</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="src.js"></script>
+</head>
+ 
+<body id="page1">
+    <h1>Random Dynamic stuff</h1>
+    <script>
+        var n0
+        var n1
+        var a
+        function add(){
+            n0 = parseFloat(document.getElementById("n0").value);
+            n1 = parseFloat(document.getElementById("n1").value);
+            a="+"
+            AddText('sign',a)
+        }
+        function multiply(){
+            n0 = parseFloat(document.getElementById("n0").value);
+            n1 = parseFloat(document.getElementById("n1").value);
+            a="*"
+            AddText('sign',a)
+        }
+            function divide(){
+            n0 = parseFloat(document.getElementById("n0").value);
+            n1 = parseFloat(document.getElementById("n1").value);
+            a="/"
+            AddText('sign',a)
+        }
+            function subtract(){
+            n0 = parseFloat(document.getElementById("n0").value);
+            n1 = parseFloat(document.getElementById("n1").value);
+            a="-"
+            AddText('sign',a)
+        }
+            function exponent(){
+            n0 = parseFloat(document.getElementById("n0").value);
+            n1 = parseFloat(document.getElementById("n1").value);
+            a="^"
+            AddText('sign',a)
+        }
+            function submit(){
+                if (a == "+") {
+        n = n0 + n1; 
+    } else if (a == "-") {
+        n = n0 - n1; 
+    } else if (a == "*") {
+        n = n0 * n1; 
+    } else if (a == "/") {
+        n = n0 / n1; 
+    }else if (a == "^") {
+        n = n0 ** n1; 
+    } else {
+        n = "Select an operation"; 
+    }
+    AddText('out', n); 
+}
+    </script>
+    <br>
+    <h3>calculator</h4>
+    <input id="n0" type="text" placeholder="Enter first number">
+    <p id="sign"></p>
+    <input id="n1" type="text" placeholder="Enter second number">
+    <br>
+    <button onclick="add()">add</button>
+    <button onclick="multiply()">multiply</button>
+    <button onclick="divide()">divide</button>
+    <button onclick="subtract()">subtract</button>
+    <button onclick="exponent()">exponent</button>
+    <br>
+    <br>
+    <button onclick="submit()">submit</button>
+    <p id="out"></p>
+        <br>
+        <br>
+        <a class="gridleft" href="Index.html">Press to go back</a>
+</body>
+ 
+</html>

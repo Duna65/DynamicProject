@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>Random Dynamic stuff</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="src.js"></script>
+</head>
+ 
+<body id="page1">
+    <h1>Random Dynamic stuff</h1>
+    <h3>Enter Your Name</h3>
+    <input id="name" type="text">
+    <button type="button" onclick="EnterName()">Submit</button>
+    <p id="demo"></p>
+    <script>
+        function EnterName() {
+            let user = document.getElementById("name").value;
+ 
+            document.getElementById("demo").innerHTML =
+                "Welcome to my dynamic portfolio " + user +"!";
+        }
+                function add(){
+                    n0 = parseFloat(document.getElementById("n0").value);
+                    n1 = parseFloat(document.getElementById("n1").value);
+             var a=n0+n1
+            AddText('out',a)
+        }
+        function multiply(){
+            n0 = document.getElementById("n0").value
+            n1 = document.getElementById("n1").value
+            a=n0*n1
+            AddText('out',a)
+        }
+            function divide(){
+            n0 = document.getElementById("n0").value
+            n1 = document.getElementById("n1").value
+            a=n0/n1
+            AddText('out',a)
+        }
+            function subtract(){
+            n0 = document.getElementById("n0").value
+            n1 = document.getElementById("n1").value
+            a=n0-n1
+            AddText('out',a)
+        }
+    </script>
+    <button onclick="AddText('p','I am Dallin Lyman and I am in website development 2')">Who is the creator?</button>
+    <p id="p"></p>
+    <br>
+    <h3>lil calculator</h4>
+    <input id="n0" type="text" placeholder="Enter first number">
+    <input id="n1" type="text" placeholder="Enter second number">
+    <br>
+    <button onclick="add()">add</button>
+    <button onclick="multiply()">multiply</button>
+    <button onclick="divide()">divide</button>
+    <button onclick="subtract()">subtract</button>
+    <p id="out"></p>
+        <br>
+        <br>
+        <a class="gridleft" href="Index.html">Press to go back</a>
+</body>
+ 
+</html>
