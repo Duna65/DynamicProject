@@ -19,11 +19,15 @@
         <br>
         </div>
         <div id="house">
+            <h3>House</h3>
+            <p id="housec"></p>
+            <p id="houses"></p>
         </div>
         <div id="p1">
         <h3>player 1</h3>
         <p id="p1m"></p>
         <p id="p1c"></p>
+        <p id="p1s"></p>
         <button onclick="hit(p1)">Hit</button>
         <button onclick="stand(p1)">Stand</button>
         <input id="p1b" type="number" placeholder="Enter Bet">
@@ -32,6 +36,7 @@
         <h3>player 2</h3>
         <p id="p2m"></p>
         <p id="p2c"></p>
+        <p id="p2s"></p>
         <button onclick="hit(p2)">Hit</button>
         <button onclick="stand(p2)">Stand</button>
         <input id="p2b" type="number" placeholder="Enter Bet">
@@ -40,6 +45,7 @@
         <h3>player 3</h3>
         <p id="p3m"></p>
         <p id="p3c"></p>
+        <p id="p3s"></p>
         <button onclick="hit(p3)">Hit</button>
         <button onclick="stand(p3)">Stand</button>
         <input id="p3b" type="number" placeholder="Enter Bet">
@@ -48,6 +54,7 @@
         <h3>player 4</h3>
         <p id="p4m"></p>
         <p id="p4c"></p>
+        <p id="p4s"></p>
         <button onclick="hit(p4)">Hit</button>
         <button onclick="stand(p4)">Stand</button>
         <input id="p4b" type="number" placeholder="Enter Bet">
@@ -69,62 +76,221 @@
         var p4 = []
         var house = []
         var deck = []
-        var cardstaken = 0
-
-            let i=1
-            let n=1
-            for(i=1;i<5;i++){
-                for(n=1;n<14;n++){
-                    deck.push({face:i, number:n})
-                }
-            }
-            for (let j = deck.length - 1; j > 0; j--) {
-        var k = Math.floor(Math.random() * (j + 1));
-        [deck[j], deck[k]] = [deck[k], deck[j]];
+        var stands = 0
+        var players = 0
+        deckmake()
+function deckmake(){
+    deck = []
+    let i=1
+    let n=1
+    for(i=1;i<5;i++){
+        for(n=1;n<14;n++){
+            deck.push({face:i, number:n})
+        }
+    }
+    for (let j = deck.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1))
+        [deck[j], deck[k]] = [deck[k], deck[j]]
+    }
 }
-
 function hit(player) {
     getcard(deck,player)
     print(player)
 }
-
 function stand(player) {
+    if(player==p1){
+                CardText('p1s', 'Stood')
+            }
+        if(player==p2){
+                CardText('p2s', 'Stood')
+            }
+        if(player==p3){
+                CardText('p3s', 'Stood')
+            }
+        if(player==p4){
+                CardText('p4s', 'Stood')
+            }
     stands++
-    if(players>=stands){
-        checkAllPlayers
+    if(players<=stands){
+        checkAllPlayers()
     }
 }
 function bet(player){
-    betm = parseInt(document.getElementById(`${player}b`));
-    if (betm<`${player}m`){
-        betm-`${player}m`
-        betm+`bet${player}`
+        if(player==p1){
+        let betm = parseInt(document.getElementById(`p1b`).value);
+        if (betm <= p1m){
+            p1m -= betm 
+            betp1 = betm
+        }
+        AddText(`p1m`, 'money: '+p1m)
     }
-    CardText(`${player}m`, 'money: '+p1m)
-    print(player)
+    if(player==p2){
+        let betm = parseInt(document.getElementById(`p2b`).value);
+        if (betm <= p2m){
+            p2m -= betm 
+            betp2 = betm
+        }
+        AddText(`p2m`, 'money: '+p2m)
+    }
+    if(player==p3){
+        let betm = parseInt(document.getElementById(`p3b`).value);
+        if (betm <= p3m){
+            p3m -= betm 
+            betp3 = betm
+        }
+        AddText(`p3m`, 'money: '+p3m)
+    }
+    if(player==p4){
+        let betm = parseInt(document.getElementById(`p4b`).value);
+        if (betm < p4m){
+            p4m -= betm 
+            betp4 = betm
+    }
+        AddText(`p4m`, 'money: '+p4m)
+    }
+        print(player)
+        AddText('housec', '')
 }
 function checkAllPlayers() {
-    const allStood = players.every(p => p.hasStood)
-    if (allStood) {
+    if (players<=stands) {
         houseDraw()
     }
 } 
 function houseDraw() {
-  if(score(house)<=15&&score(house)!=0){
-    getcard(deck, house)
-  } 
-  if(players==1){
-        
+    for(let i=score(house);i<=15;i=score(house)){//logic for the house
+            if(score(house)!=0){
+            getcard(deck, house)
+            if(house.length>=8){
+                break
+            }
+            }
+            if(score(house)==0){
+                console.log(house)
+                break
+            }
+    }
+    if(players==1){//logic to score the winners
+        scorebet(p1)
+        AddText('p1c', '')
+        AddText('p1m', 'money: '+p1m)
+        print(house)
+        clear()
+        deal(players)
+    }
+    if(players==2){
+        scorebet(p1)
+        scorebet(p2)
+        AddText('p1c', '')
+        AddText('p1m', 'money: '+p1m)
+        AddText('p2c', '')
+        AddText('p2m', 'money: '+p2m)
+        print(house)
+        clear()
+        deal(players)
+    }
+    if(players==3){
+        scorebet(p1)
+        scorebet(p2)
+        scorebet(p3)
+        AddText('p1c', '')
+        AddText('p1m', 'money: '+p1m)
+        AddText('p2c', '')
+        AddText('p2m', 'money: '+p2m)
+        AddText('p3c', '')
+        AddText('p3m', 'money: '+p3m)
+        print(house)
+        clear()
+        deal(players)
+    }
+    if(players==4){
+        scorebet(p1)
+        scorebet(p2)
+        scorebet(p3)
+        scorebet(p4)
+        AddText('p1c', '')
+        AddText('p1m', 'money: '+p1m)
+        AddText('p2c', '')
+        AddText('p2m', 'money: '+p2m)
+        AddText('p3c', '')
+        AddText('p3m', 'money: '+p3m)
+        AddText('p4c', '')
+        AddText('p4m', 'money: '+p4m)
+        print(house)
+        clear()
+        deckmake()
+        deal(players)
+    }
+    stands = 0
+}
+function scorebet(player){
+    if(player==p1){//logic to score the winners
+        p1s = score(p1)
+        houses = score(house)
+        if(p1s>houses){
+            p1m += betp1 * 2
+        }
+        if(p1s<houses){
+            betp1=0
+        }
+        if(p1s==houses){
+            p1m += betp1
+        }
+    }
+    if(player==p2){//logic to score the winners
+        p2s = score(p2)
+        houses = score(house)
+        if(p2s>houses){
+            p2m += betp2 * 2
+        }
+        if(p2s<houses){
+            betp2=0
+        }
+        if(p2s==houses){
+            p2m += betp2
+        }
+    }
+    if(player==p3){//logic to score the winners
+        p3s = score(p3)
+        houses = score(house)
+        if(p3s>houses){
+            p3m += betp3 * 2
+        }
+        if(p3s<houses){
+            betp3=0
+        }
+        if(p3s==houses){
+            p3m += betp3
+        }
+    }
+    if(player==p4){//logic to score the winners
+        p4s = score(p4)
+        houses = score(house)
+        if(p4s>houses){
+            p4m += betp4 * 2
+        }
+        if(p4s<houses){
+            betp4=0
+        }
+        if(p4s==houses){
+            p4m += betp4
+        }
     }
 }
-        function deal(players){
-            if(players==1){
+function clear(){
+    p1 = []
+    p2 = []
+    p3 = []
+    p4 = []
+    house = []
+}
+function deal(playersc){
+            if(playersc==1){
                 getcard(deck, house)
                 getcard(deck, house)
                 getcard(deck, p1)
                 getcard(deck, p1)
                 AddText('p1m','money: '+p1m)
-            }if(players==2){
+            }if(playersc==2){
                 getcard(deck, house)
                 getcard(deck, house)
                 getcard(deck, p1)
@@ -133,7 +299,7 @@ function houseDraw() {
                 getcard(deck, p2)
                 AddText('p1m','money: '+p1m)
                 AddText('p2m','money: '+p2m)
-            }if(players==3){
+            }if(playersc==3){
                 getcard(deck, house)
                 getcard(deck, house)
                 getcard(deck, p1)
@@ -145,7 +311,7 @@ function houseDraw() {
                 AddText('p1m','money: '+p1m)
                 AddText('p2m','money: '+p2m)
                 AddText('p3m','money: '+p3m)
-            } if(players==4){
+            } if(playersc==4){
                 getcard(deck, house)
                 getcard(deck, house)
                 getcard(deck, p1)
@@ -161,7 +327,7 @@ function houseDraw() {
                 AddText('p3m','money: '+p3m)
                 AddText('p4m','money: '+p4m)
             }
-            var players = players
+            players = playersc
         }
         function getcard(source,destination){
             destination.push(source.pop())
@@ -169,12 +335,10 @@ function houseDraw() {
         function score(player) {
     let Aces = 0; // aces in the player's hand
     let Score = 0; // Overall score
-
-    //per card in the hand
     for (let card of player) {
         if (card.number === 1) { // Check if the card is an Ace
             Aces += 1;
-            Score += 10;
+            Score += 11;
         } else if (card.number >= 10) { //face cards
             Score += 10;
         } else {
@@ -195,10 +359,28 @@ function houseDraw() {
     return Score;
 }
 function print(player){
-            let card = ""
-            let cardnum = 0
-        for(let c in player){
-                cardnum++
+        if(player==p1){
+                AddText('p1c', '')
+                AddText('p1s', '')
+            }
+        if(player==p2){
+                AddText('p2c', '')
+                AddText('p2s', '')
+            }
+        if(player==p3){
+                AddText('p3c', '')
+                AddText('p3s', '')
+            }
+        if(player==p4){
+                AddText('p4c', '')
+                AddText('p4s', '')
+            }
+        if(player==house){
+                AddText('housec', '')
+                AddText('houses', '')
+        }
+            var card = ""
+        for(let c of player){
             if(c.face==4) {
                 if(c.number==1){
                     card = "Ace of Spades"
@@ -208,8 +390,9 @@ function print(player){
                     card = "Queen of Spades"
                 }if(c.number==13){
                     card = "King of Spades"
-                }if(c.number<=10 && c.number!=1)
+                }if(c.number<=10 && c.number!=1){
                     card =  c.number + " of Spades"
+                }
             } if(c.face==3) {
                 if(c.number==1){
                     card = "Ace of Clubs"
@@ -219,8 +402,9 @@ function print(player){
                     card = "Queen of Clubs"
                 }if(c.number==13){
                     card = "King of Clubs"
-                }if(c.number<=10 && c.number!=1)
+                }if(c.number<=10 && c.number!=1){
                     card =  c.number + " of Clubs"
+                }
             } if(c.face==2) {
                 if(c.number==1){
                     card = "Ace of Diamonds"
@@ -230,8 +414,9 @@ function print(player){
                     card = "Queen of Diamonds"
                 }if(c.number==13){
                     card = "King of Diamonds"
-                }if(c.number<=10 && c.number!=1)
+                }if(c.number<=10 && c.number!=1){
                     card =  c.number + " of Diamonds"
+                }
             } if(c.face==1){
                 if(c.number==1){
                     card = "Ace of Hearts"
@@ -241,16 +426,47 @@ function print(player){
                     card = "Queen of Hearts"
                 }if(c.number==13){
                     card = "King of Hearts"
-                }if(c.number<=10 && c.number!=1)
+                }if(c.number<=10 && c.number!=1){
                     card =  c.number + " of Hearts"
+                }
+                }
+            if(player==p1){
+                CardText('p1c', card)
             }
-            CardText(`${player}c`, card)
+            if(player==p2){
+                CardText('p2c', card)
+            }
+            if(player==p3){
+                CardText('p3c', card)
+            }
+            if(player==p4){
+                CardText('p4c', card)
+            }
+            if(player==house){
+                CardText('housec', card)
+            }
         }
+        if(player==p1){
+                CardText('p1s', 'Score: ' + score(p1))
+            }
+            if(player==p2){
+                CardText('p2s', 'Score: ' + score(p2))
+            }
+            if(player==p3){
+                CardText('p3s', 'Score: ' + score(p3))
+            }
+            if(player==p4){
+                CardText('p4s', 'Score: ' + score(p4))
+            }
+            if(player==house){
+                CardText('houses', 'Score: ' + score(house))
+            }
     }
-    function CardText(id, text) {
+function CardText(id, text) {
     const element = document.getElementById(id);
     if (element) { // Check if the element exists
-        element.innerText += text;
+        element.innerText += text + `
+        `
     } else {
         console.error(`Element with id ${id} not found.`);
     }
