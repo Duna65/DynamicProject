@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+    <title>Email</title>
+    <link rel="stylesheet" href="styles.css">
+<script src="src.js"></script>
+</head>
+<body id="page1">
+    <form action="mailto:dallin.lyman@malad.us">
+            Email:<br>
+            <input type="email" id="email" name="email" placeholder="Your Email"><br>
+            Phone Number:<br>
+            <input id="phone" type="text" placeholder="Enter your phone number">
+            <br>Zip Code:<br>
+            <input id="zip" type="text" placeholder="Enter your zip code">
+            <br>Message:<br>
+            <input id="message" type="text" placeholder="Your Message"><br>
+            <button type="button" onclick="Submit()">Submit</button>
+            <p id="emailp"></p>
+            <p id="phonep"></p>
+            <p id="zipp"></p>
+            <p id="messagep"></p>
+            <p id="sub">Press the one above first to check if the info is right</p>
+            <input type="submit" value="Check and submit">
+        </form>
+        <br>
+        <br>
+        <br>
+        <a class="gridmiddle" href="Index.html">Go back</a>
+    <script>
+        var aok = false //checks if the message is good to send
+        var email = "filler"//variables for the message
+        var phone = 'filler'
+        var zip = 'filler'
+        var message = 'hi'
+    function Submit(){
+            email = document.getElementById("email").value//gets variables
+            phone = document.getElementById("phone").value
+            zip = document.getElementById("zip").value
+            message = document.getElementById("message").value
+            if (email.includes("@")==true&&email.includes(".")==true){//checks if the email is valid
+                aok = true
+            } else{
+                aok = false
+                AddText('emailp','please input a valid email')
+            }
+            if(phone.length==10&&parseInt(phone)){//checks if the phone number is valid and splits it into 3 peices
+                aok=true
+               acode = phone.slice(0, 3)
+               sec = phone.slice(3, 6)
+               thi = phone.slice(6, 10)
+            } else if (phone.includes("-")||phone.includes(" ")){//checks if the user divided the numbers already
+                aok=true
+                acode = phone.slice(0, 3); 
+                sec = phone.slice(4, 7);    
+                thi = phone.slice(8, 12);
+            } else {
+                aok=false
+                AddText('phonep','please input a valid phone number')//prints error
+            }
+            if(zip.length==5&&parseInt(zip)){//checks if zip code is valid
+                aok=true
+            } else{
+                aok=false
+                AddText('zipp','please input a valid zip code')
+            }
+            if (aok==true){
+                phone = '+1 ('+ acode + ')-' + sec + '-' + thi//prints phone number and everything else
+                AddText('emailp','Email: '+email)
+                AddText('phonep','Phone Number: '+phone)
+                AddText('zipp','Zip Code: '+zip)
+                AddText('messagep','Message: '+message)
+                AddText('sub','would you like to submit?')
+            }
+    }
+    </script>
+</body>
