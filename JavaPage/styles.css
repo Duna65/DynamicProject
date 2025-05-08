@@ -2,13 +2,13 @@
     text-align: center;
     background-color: rgb(210, 210, 210);
     display: grid;
-    grid-template-columns: 10% 80% 10%;
+    grid-template-columns: 80% 10%;
     overflow: scroll;
     height: fit-content;
 }
 #page1{
     text-align: center;
-    background-color: rgb(220, 220, 220);
+    background-color: rgb(210, 210, 210);
     overflow: scroll;
     height: fit-content;
 }
@@ -34,9 +34,9 @@
 .gridright{
     grid-column:3 ;
 }
-#page3{
+.page3{
     text-align: center;
-    background-color: rgb(225, 225, 225);
+    background-color: rgb(150, 150, 150);
     display: grid;
     grid-template-rows: 30% 70%;
     grid-template-columns: 20% 20% 20% 20% 20%;

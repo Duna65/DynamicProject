@@ -17,13 +17,17 @@
         <button onclick="deal(3)">3 players</button>
         <button onclick="deal(4)">4 players</button>
         <br>
+        <br>
+        <br>
+        <a class="gridleft" href="Index.html">Go back</a>
+        <br>
         </div>
         <div id="house">
             <h3>House</h3>
             <p id="housec"></p>
             <p id="houses"></p>
         </div>
-        <div id="p1">
+        <div class="p1">
         <h3>player 1</h3>
         <p id="p1m"></p>
         <p id="p1c"></p>
@@ -32,7 +36,7 @@
         <button onclick="stand(p1)">Stand</button>
         <input id="p1b" type="number" placeholder="Enter Bet">
         <button onclick="bet(p1)">Place Bet</button>
-    </div><div id="p2">
+    </div><div class="p2">
         <h3>player 2</h3>
         <p id="p2m"></p>
         <p id="p2c"></p>
@@ -41,7 +45,7 @@
         <button onclick="stand(p2)">Stand</button>
         <input id="p2b" type="number" placeholder="Enter Bet">
         <button onclick="bet(p2)">Place Bet</button>
-    </div><div id="p3">
+    </div><div class="p3">
         <h3>player 3</h3>
         <p id="p3m"></p>
         <p id="p3c"></p>
@@ -50,7 +54,7 @@
         <button onclick="stand(p3)">Stand</button>
         <input id="p3b" type="number" placeholder="Enter Bet">
         <button onclick="bet(p3)">Place Bet</button>
-    </div><div id="p4">
+    </div><div class="p4">
         <h3>player 4</h3>
         <p id="p4m"></p>
         <p id="p4c"></p>
@@ -78,7 +82,6 @@
         var deck = []
         var stands = 0
         var players = 0
-        deckmake()
 function deckmake(){
     deck = []
     let i=1
@@ -88,10 +91,7 @@ function deckmake(){
             deck.push({face:i, number:n})
         }
     }
-    for (let j = deck.length - 1; j > 0; j--) {
-        var k = Math.floor(Math.random() * (j + 1))
-        [deck[j], deck[k]] = [deck[k], deck[j]]
-    }
+    deck.sort(() => Math.random() - 0.5);
 }
 function hit(player) {
     getcard(deck,player)
@@ -284,6 +284,7 @@ function clear(){
     house = []
 }
 function deal(playersc){
+        deckmake()
             if(playersc==1){
                 getcard(deck, house)
                 getcard(deck, house)
@@ -328,11 +329,11 @@ function deal(playersc){
                 AddText('p4m','money: '+p4m)
             }
             players = playersc
-        }
-        function getcard(source,destination){
+}
+function getcard(source,destination){
             destination.push(source.pop())
-        }
-        function score(player) {
+}
+function score(player) {
     let Aces = 0; // aces in the player's hand
     let Score = 0; // Overall score
     for (let card of player) {
