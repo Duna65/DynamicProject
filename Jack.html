@@ -118,7 +118,7 @@ function stand(player) {
 function bet(player){
         if(player==p1){
         let betm = parseInt(document.getElementById(`p1b`).value);
-        if (betm <= p1m){
+        if (betm <= p1m&&betm >= 0){
             p1m -= betm 
             betp1 = betm
         }
@@ -126,7 +126,7 @@ function bet(player){
     }
     if(player==p2){
         let betm = parseInt(document.getElementById(`p2b`).value);
-        if (betm <= p2m){
+        if (betm <= p2m&&betm >= 0){
             p2m -= betm 
             betp2 = betm
         }
@@ -134,7 +134,7 @@ function bet(player){
     }
     if(player==p3){
         let betm = parseInt(document.getElementById(`p3b`).value);
-        if (betm <= p3m){
+        if (betm <= p3m&&betm >= 0){
             p3m -= betm 
             betp3 = betm
         }
@@ -142,7 +142,7 @@ function bet(player){
     }
     if(player==p4){
         let betm = parseInt(document.getElementById(`p4b`).value);
-        if (betm < p4m){
+        if (betm < p4m&&betm >= 0){
             p4m -= betm 
             betp4 = betm
     }
