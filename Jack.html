@@ -142,7 +142,7 @@ function bet(player){
     }
     if(player==p4){
         let betm = parseInt(document.getElementById(`p4b`).value);
-        if (betm < p4m&&betm >= 0){
+        if (betm <= p4m&&betm >= 0){
             p4m -= betm 
             betp4 = betm
     }
